@@ -1,0 +1,6 @@
+target/
+.lein-failures
+.idea/
+*.iml
+*.swp
+
