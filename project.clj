@@ -6,5 +6,7 @@
                  [midje "1.5-alpha4" :scope "test"]]
 
   :plugins [[lein-midje "3.0-alpha1"]]
+
+  :test-paths ["exercises"]
 )
 
