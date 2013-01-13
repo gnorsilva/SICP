@@ -74,6 +74,6 @@
   ; being passed to a function. Since (p) returns itself it would never evaluate
 
   ; for normal-order evaluation p is never evaluated and so the program can
-  ; evaluate the correct resut
+  ; evaluate the correct result
 
   (eval-test 0 p) => 0 )
