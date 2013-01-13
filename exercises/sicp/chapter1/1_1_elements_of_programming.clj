@@ -70,11 +70,10 @@
   (defn eval-test [x y]
     (if (= x 0) 0 y))
 
-  (eval-test 0 p) => 0
+  ; For applicative-order evaluation the arguments are evaluated before
+  ; being passed to a function. Since (p) returns itself it would never evaluate
 
-; For applicative-order evaluation the arguments are evaluated before
-; being passed to a function. Since (p) returns itself it would never evaluate
+  ; for normal-order evaluation p is never evaluated and so the program can
+  ; evaluate the correct resut
 
-; for normal-order evaluation p is never evaluated and so the program can
-; evaluate the correct resut
-)
+  (eval-test 0 p) => 0 )
