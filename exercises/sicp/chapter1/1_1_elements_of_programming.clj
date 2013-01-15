@@ -123,26 +123,23 @@
 (fact "1.7"
   (fact "explain why the above 'good-enough?' function is not effective for small and large numbers"
 
-    (sqrt 0.000000001) => 0.007812542664015912 ; WRONG! should have been 0.00003162277
+    (sqrt 0.000000001) => 0.007812542664015912) ; WRONG! should have been 3.162278058889937E-5
     ; (sqrt 10000000000000000000000000000000) => STACK OVERFLOW!
 
     ; For small numbers 0.0001 is not an accurate threshold
-    ; For large numbers it would take a long time to reach a precision of 0.0001
+    ; For large numbers small precision is lost, so 0.0001 is not usable
 
-    )
 
-  (pending-fact "implement an alternative 'good-enough?' which uses fractions to decide when to stop"
-
-    (defn round-it [x]
-      (Double/valueOf (format "%.4f" (double x))))
-
-    (defn guess-ratio [guess x]
-      (abs (/ (square guess) x)))
+  (fact "implement an alternative 'good-enough?' which uses fractions to decide when to stop"
 
     (defn good-enough? [guess x]
-      (and (< (guess-ratio guess x) 1) (> (guess-ratio guess x) 0.5)))
+      (< (abs (- 1 (/ (square guess) x))) 0.0001))
 
     (sqrt 2) => 1.4142156862745097
     (sqrt 4) => 2.0000000929222947
-    (sqrt 0.000000001) => 0.00003162277)
+    (sqrt 0.000000001) => 3.162278058889937E-5
+    (sqrt 10000000000000000000000000000000) => 3.162348943003884E15))
+
+(pending-fact "1.8 - Implement Newton's method for cube roots analogously to the square root procedure"
+
   )
