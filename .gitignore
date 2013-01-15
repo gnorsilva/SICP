@@ -12,3 +12,4 @@ pom.xml
 *.iml
 *.swp
 
+.lein-repl-history

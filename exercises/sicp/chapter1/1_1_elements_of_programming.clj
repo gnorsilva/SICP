@@ -88,11 +88,11 @@
 (fact "1.6 - What happens when Allysa P. Hacker tries to use a new-if to compute square roots?"
 
   (defn average [x y]
-    (double (/ (+ x y) 2)))
-  ; casting these to double to loose clojure's inbuilt rational number fractions
+    (/ (+ x y) 2))
 
   (defn improve [guess x]
-    (average guess (/ x guess)))
+    (double (average guess (/ x guess))))
+  ; casting these to double to loose clojure's inbuilt rational number fractions
 
   (defn abs [x]
     (if (< x 0) (- x) x))
@@ -140,6 +140,28 @@
     (sqrt 0.000000001) => 3.162278058889937E-5
     (sqrt 10000000000000000000000000000000) => 3.162348943003884E15))
 
-(pending-fact "1.8 - Implement Newton's method for cube roots analogously to the square root procedure"
+(fact "1.8 - Implement Newton's method for cube roots analogously to the square root procedure"
+  ; approximation: (x / y² + 2y) / 3
 
-  )
+  (defn cube [x] (* x x x));
+
+  (defn good-enough? [guess x]
+    (< (abs (- (cube guess) x)) 0.0001))
+
+  (defn improve [guess x]
+    (double (/ (+ (/ x (square guess)) (* 2 guess)) 3)))
+  ; casting to double to loose clojure's inbuilt rational number fractions
+
+  (defn cube-iter [guess x]
+    (if (good-enough? guess x)
+      guess
+      (cube-iter (improve guess x) x)))
+
+  (defn cube-root [x]
+    (sqrt-iter 1 x))
+
+  (defn _4-decimal-places [x]
+    (Double/valueOf (format "%.4f" x)))
+
+  (_4-decimal-places (cube-root 27)) => 3.0
+  (_4-decimal-places (cube-root 1000)) => 10.0)
